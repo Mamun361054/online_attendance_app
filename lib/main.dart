@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-
-void main() {
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_attendance_app/routes/route.dart';
+import 'dependency_injection.dart' as di;
+void main() async {
+  await di.init();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ScreenUtilInit(
+      /// Creates a [MaterialApp] that uses the [Router] instead of a [Navigator].
+      builder: ((_,c) => MaterialApp.router(
+        title: 'Store Attendance',
+        routerConfig: AppRoute.router,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+      )),
     );
   }
 }
