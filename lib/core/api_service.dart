@@ -5,13 +5,13 @@ import 'package:online_attendance_app/domain/store.dart';
 
 class ApiService {
 
-  String baseUrl = "http://128.199.215.102:4040/";
-  String storesUrl = "api/stores";
-  String attendanceUrl = "api/attendance";
+  static const String baseUrl = "http://128.199.215.102:4040";
+  String storesUrl = "$baseUrl/api/stores";
+  String attendanceUrl = "$baseUrl/api/attendance";
 
   Future<List<Store>> getAllStoreData({page=1}) async {
     try {
-      var res = await http.get(Uri.parse('$storesUrl&page=$page'));
+      var res = await http.get(Uri.parse('$storesUrl?page=$page'));
       print('store response ${res.body}');
       if (res.statusCode == 200) {
         var decData = jsonDecode(res.body.toString());
