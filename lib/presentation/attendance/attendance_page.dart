@@ -22,6 +22,7 @@ class AttendancePage extends HookConsumerWidget {
     final state = ref.watch(storeNotifierProvider);
     final controller = ref.read(storeNotifierProvider.notifier);
     Attendance attendance = Attendance();
+    attendance.requestId = '${Random().nextInt(pow(8, 8).ceil())}';
 
     return Form(
       key: formKey,
@@ -66,10 +67,11 @@ class AttendancePage extends HookConsumerWidget {
                     ),
                     ElevatedButtonWidget(
                       text: "SAVE",
+                      isLoading: state.isLoading,
                       onPressed: () async {
+                        controller.stateMaker(state.copyWith(isLoading: true));
                         if (formKey.currentState!.validate() && !state.isLoading) {
                           Position position = await locationService.determinePosition();
-                          attendance.requestId = '${Random().nextInt(16 * 16)}';
                           attendance.latitude = position.latitude;
                           attendance.longitude = position.longitude;
                           print(attendance.toJson());

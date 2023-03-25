@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   final String? text;
+  final bool isLoading;
   final Function()? onPressed;
 
-  const ElevatedButtonWidget({Key? key, this.text, this.onPressed})
+  const ElevatedButtonWidget({Key? key, this.text, this.onPressed,this.isLoading = false})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class ElevatedButtonWidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0)),
               backgroundColor: Colors.deepOrange),
-          onPressed: onPressed,
+          onPressed: isLoading ? null : onPressed,
           child: Text(
             '$text',
             style: const TextStyle(

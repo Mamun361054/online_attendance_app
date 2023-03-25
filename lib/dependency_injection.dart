@@ -10,9 +10,14 @@ import 'package:online_attendance_app/infrastructure/store_infrastructure.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  /// ApiService register as singleton dependency
   sl.registerSingleton<ApiService>(ApiService());
+  /// StoreInfrastructure register as singleton dependency
   sl.registerSingleton<StoreDomain>(StoreInfrastructure(apiService: sl()));
+  /// LocationService register as singleton dependency
   sl.registerSingleton<LocationService>(LocationService());
 }
-
+///state change notifier provider for storeState
+///
+/// notify all listener when any state change
 final storeNotifierProvider = StateNotifierProvider<StoreNotifier,StoreState>((ref) => StoreNotifier(storeDomain: sl()));

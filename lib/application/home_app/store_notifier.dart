@@ -32,7 +32,7 @@ class StoreNotifier extends StateNotifier<StoreState> {
       } else {
         ToastMessage.error('try again later');
       }
-      stateMaker(state.copyWith(isLoading: false));
     });
+    stateMaker(state.copyWith(isLoading: false));
   }
 }
