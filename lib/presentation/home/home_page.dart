@@ -9,7 +9,6 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(storeNotifierProvider);
-    final controller = ref.read(storeNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(

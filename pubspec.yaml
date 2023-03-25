@@ -43,6 +43,7 @@ dependencies:
   go_router: ^6.0.0
   http: ^0.13.5
   fluttertoast: ^8.1.2
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:online_attendance_app/core/api_service.dart';
 import 'package:online_attendance_app/core/toast.dart';
+import 'package:online_attendance_app/domain/attendance.dart';
 import 'package:online_attendance_app/domain/store.dart';
 import 'package:online_attendance_app/domain/store_domain.dart';
 
@@ -14,8 +15,16 @@ class StoreInfrastructure extends StoreDomain {
       final stores = await apiService.getAllStoreData(page: page);
       return stores;
     } catch (e) {
-      ToastMessage.error('error accured => $e');
+      ToastMessage.error('error occurred => $e');
     }
     return [];
+  }
+
+  @override
+  Future<bool> requestAttendance({required Attendance attendance}) async {
+    try {
+      return await apiService.requestAttendance(attendance: attendance);
+    } catch (_) {}
+    return false;
   }
 }

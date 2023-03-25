@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FromField extends StatelessWidget {
-  final Function()? onTap;
-  final TextEditingController? controller;
+  final Function(String)? onChanged;
   final String? title;
   final String? hintText;
   final IconButton? suffixIcon;
@@ -12,9 +11,8 @@ class FromField extends StatelessWidget {
       this.hintText,
       this.title,
       this.suffixIcon,
-      this.controller,
       this.prefixIcon,
-      this.onTap})
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -51,8 +49,9 @@ class FromField extends StatelessWidget {
               height: 8,
             ),
             TextFormField(
-              controller: controller,
               cursorColor: Colors.deepOrange,
+              onChanged: onChanged,
+              validator: (val) => val!.isEmpty ? 'Filed must be filled': null,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

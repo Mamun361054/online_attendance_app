@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:online_attendance_app/core/toast.dart';
+import 'package:online_attendance_app/domain/attendance.dart';
 import 'package:online_attendance_app/domain/store.dart';
 
 class ApiService {
@@ -22,5 +23,17 @@ class ApiService {
       ToastMessage.error(e.toString());
     }
     return [];
+  }
+  Future<bool> requestAttendance({required Attendance attendance}) async {
+    try {
+      var res = await http.get(Uri.parse(attendanceUrl));
+      print('attendance response ${res.body}');
+      if (res.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      ToastMessage.error(e.toString());
+    }
+    return false;
   }
 }
