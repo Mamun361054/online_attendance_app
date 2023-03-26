@@ -9,17 +9,43 @@ import '../../core/toast.dart';
 
 class StoreNotifier extends StateNotifier<StoreState> {
   final StoreDomain storeDomain;
+  int page = 1;
+  List<Store> stores = [];
 
   StoreNotifier({required this.storeDomain}) : super(StoreState.init()) {
     loadStores();
+    loadMore();
   }
+
+  ScrollController controller = ScrollController();
 
   stateMaker(StoreState newState) => state = newState;
 
+  loadMore() {
+    controller.addListener(() {
+      ///reach to the bottom
+      if (controller.offset >= controller.position.maxScrollExtent &&
+          !controller.position.outOfRange) {
+        loadStores(page: ++page);
+      }
+    });
+  }
+
   loadStores({int page = 1}) async {
-    stateMaker(state.copyWith(isLoading: true));
-    List<Store> stores = await storeDomain.getStores(page: page);
-    stateMaker(state.copyWith(isLoading: false, stores: stores));
+    ///page equal 1 means first time data loading so
+    ///we have to show loader in view page and assign list
+    if (page == 1) {
+      stateMaker(state.copyWith(isLoading: true));
+      stores = await storeDomain.getStores(page: page);
+      stateMaker(state.copyWith(isLoading: false, stores: stores));
+
+      ///page greater than 1 means user want to load more data
+      ///here we dont need to show any loader
+    } else {
+      final moreStores = await storeDomain.getStores(page: page);
+      stores.addAll(moreStores);
+      stateMaker(state.copyWith(isLoading: false, stores: stores));
+    }
   }
 
   requestAttendance(

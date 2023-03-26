@@ -9,6 +9,7 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(storeNotifierProvider);
+    final controller = ref.read(storeNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,11 +30,13 @@ class HomePage extends HookConsumerWidget {
           : Container(
               padding: const EdgeInsets.all(20),
               child: ListView.builder(
+                controller: controller.controller,
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.stores.length,
                 itemBuilder: (context, index) {
                   return Card(
+                    margin: const EdgeInsets.all(8.0),
                     child: ListTile(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -41,7 +44,10 @@ class HomePage extends HookConsumerWidget {
                                 store: state.stores.elementAt(index))));
                       },
                       title: Text(state.stores.elementAt(index).name),
-                      subtitle: Text(state.stores.elementAt(index).address),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(state.stores.elementAt(index).address),
+                      ),
                     ),
                   );
                 },
