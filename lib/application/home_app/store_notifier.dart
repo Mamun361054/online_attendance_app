@@ -40,7 +40,7 @@ class StoreNotifier extends StateNotifier<StoreState> {
       stateMaker(state.copyWith(isLoading: false, stores: stores));
 
       ///page greater than 1 means user want to load more data
-      ///here we dont need to show any loader
+      ///here we don't need to show any loader
     } else {
       final moreStores = await storeDomain.getStores(page: page);
       stores.addAll(moreStores);
