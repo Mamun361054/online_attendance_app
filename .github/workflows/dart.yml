@@ -22,7 +22,6 @@ jobs:
         dart-version: [ stable, dev ]
         # for now, code-version will mirror dart-version to reduce number of bots
         # code-version: [stable] #, insiders]
-        bot: [ flutter_debug, dart, flutter ]
         include:
           - dart-version: stable
             flutter-version: beta
@@ -54,7 +53,6 @@ jobs:
         run: dart --version
 
       - name: Print Flutter version
-        if: "!startsWith(matrix.bot, 'dart')"
         run: flutter --version
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
