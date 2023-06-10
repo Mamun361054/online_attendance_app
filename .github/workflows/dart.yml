@@ -15,22 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest]
-        dart-version: [ stable, dev ]
-        # for now, code-version will mirror dart-version to reduce number of bots
-        # code-version: [stable] #, insiders]
-        bot: [ flutter_debug, dart, flutter ]
-        include:
-          - dart-version: stable
-            flutter-version: beta
-            code-version: stable
-          - dart-version: dev
-            flutter-version: dev
-            code-version: insiders
-
     steps:
       - uses: actions/checkout@v3
 
@@ -51,9 +35,9 @@ jobs:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
 #      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-#
-#      - name: Install dependencies
-#        run: flutter pub get
+
+      - name: Install dependencies
+        run: flutter pub get
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
