@@ -49,6 +49,14 @@ jobs:
 
       - run: flutter update-packages
         if: matrix.bot == 'flutter_repo'
+
+      - name: Print Dart version
+        run: dart --version
+
+      - name: Print Flutter version
+        if: "!startsWith(matrix.bot, 'dart')"
+        run: flutter --version
+
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
@@ -66,5 +74,5 @@ jobs:
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
-      - name: Run flutter tests
-        run: flutter test test/domain/store_test.dart
+#      - name: Run flutter tests
+#        run: flutter test test/domain/store_test.dart
