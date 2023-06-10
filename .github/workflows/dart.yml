@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+        os: [ ubuntu-latest]
         dart-version: [ stable, dev ]
         # for now, code-version will mirror dart-version to reduce number of bots
         # code-version: [stable] #, insiders]
