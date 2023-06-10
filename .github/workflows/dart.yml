@@ -15,6 +15,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest]
+        dart-version: [ stable, dev ]
+        # for now, code-version will mirror dart-version to reduce number of bots
+        # code-version: [stable] #, insiders]
+        bot: [ flutter_debug, dart, flutter ]
+        include:
+          - dart-version: stable
+            flutter-version: beta
+            code-version: stable
+          - dart-version: dev
+            flutter-version: dev
+            code-version: insiders
+
     steps:
       - uses: actions/checkout@v3
 
